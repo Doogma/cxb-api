@@ -38,6 +38,11 @@ Entities:
 
 ## API
 
+API is accessible on the following domains:
+
+- testcxbapi.doogma.com - test instance
+- cxbapi.doogma.com - production instance
+
 **1.Create/update project experience**
 
 PUT https://host/projects/{projectId}/experiences/{experienceId}

@@ -4,6 +4,7 @@ import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as logs from "aws-cdk-lib/aws-logs";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
+import { Certificate } from "aws-cdk-lib/aws-certificatemanager";
 import { Construct } from "constructs";
 import { ConfigProps } from "./config";
 import * as path from "path";
@@ -67,5 +68,33 @@ export class CXBApiInfrastructureStack extends cdk.Stack {
     );
 
     dynamoTable.grantReadWriteData(cxbApiLambda);
+
+    // const plan = api.addUsagePlan("CxbApiKeyPlan", {
+    //   name: `CxbApiKeyPlan-${config.ENV}`,
+    // });
+    // const key = api.addApiKey(`CxbApiKey-${config.ENV}`);
+    // plan.addApiKey(key);
+    // plan.addApiStage({ stage: api.deploymentStage });
+
+    // custom domain for API
+
+    // const apiDomainName = new apigateway.DomainName(
+    //   this,
+    //   "CxbApiCustomDomain",
+    //   {
+    //     domainName: config.API_DOMAIN,
+    //     certificate: Certificate.fromCertificateArn(
+    //       this,
+    //       "CxbApiCustomCertificate",
+    //       config.API_DOMAIN_CERT_ARN
+    //     ),
+    //     endpointType: apigateway.EndpointType.REGIONAL,
+    //   }
+    // );
+
+    // new apigateway.BasePathMapping(this, "CxbApiBasePathMapping", {
+    //   domainName: apiDomainName,
+    //   restApi: api,
+    // });
   }
 }
