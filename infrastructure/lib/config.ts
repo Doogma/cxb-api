@@ -10,7 +10,11 @@ export type ConfigProps = {
 };
 
 export const getConfig = (env: string): ConfigProps => {
-  dotenv.config({ path: path.resolve(__dirname, `../.env.${env}`) });
+  const override = env === "prod";
+  dotenv.config({
+    path: path.resolve(__dirname, `../.env.${env}`),
+    override: override,
+  });
 
   return {
     ENV: env || "test",
