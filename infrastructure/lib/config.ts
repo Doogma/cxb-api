@@ -14,7 +14,7 @@ export const getConfig = (env: string): ConfigProps => {
 
   return {
     ENV: env || "test",
-    REGION: process.env.REGION || "us-east-1",
+    REGION: process.env.REGION || "us-west-2",
     DYNAMO_TABLE_NAME: process.env.DYNAMO_TABLE_NAME || "",
     API_DOMAIN: process.env.API_DOMAIN || "",
     API_DOMAIN_CERT_ARN: process.env.API_DOMAIN_CERT_ARN || "",
