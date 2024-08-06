@@ -78,23 +78,23 @@ export class CXBApiInfrastructureStack extends cdk.Stack {
 
     // custom domain for API
 
-    // const apiDomainName = new apigateway.DomainName(
-    //   this,
-    //   "CxbApiCustomDomain",
-    //   {
-    //     domainName: config.API_DOMAIN,
-    //     certificate: Certificate.fromCertificateArn(
-    //       this,
-    //       "CxbApiCustomCertificate",
-    //       config.API_DOMAIN_CERT_ARN
-    //     ),
-    //     endpointType: apigateway.EndpointType.REGIONAL,
-    //   }
-    // );
+    const apiDomainName = new apigateway.DomainName(
+      this,
+      "CxbApiCustomDomain",
+      {
+        domainName: config.API_DOMAIN,
+        certificate: Certificate.fromCertificateArn(
+          this,
+          "CxbApiCustomCertificate",
+          config.API_DOMAIN_CERT_ARN
+        ),
+        endpointType: apigateway.EndpointType.REGIONAL,
+      }
+    );
 
-    // new apigateway.BasePathMapping(this, "CxbApiBasePathMapping", {
-    //   domainName: apiDomainName,
-    //   restApi: api,
-    // });
+    new apigateway.BasePathMapping(this, "CxbApiBasePathMapping", {
+      domainName: apiDomainName,
+      restApi: api,
+    });
   }
 }
