@@ -20,6 +20,14 @@ export class CXBApiInfrastructureStack extends cdk.Stack {
 
     const { config } = props;
 
+    new cdk.CfnOutput(this, "ENV", {
+      value: config.ENV,
+    });
+
+    new cdk.CfnOutput(this, "API_DOMAIN", {
+      value: config.API_DOMAIN,
+    });
+
     const dynamoTable = new dynamodb.Table(this, "CxbDataTable", {
       billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
       partitionKey: { name: "pk", type: dynamodb.AttributeType.STRING },
@@ -80,25 +88,21 @@ export class CXBApiInfrastructureStack extends cdk.Stack {
 
     const apiDomainName = new apigateway.DomainName(
       this,
-      `CxbApiCustomDomain-${config.ENV}`,
+      "CxbApiCustomDomain",
       {
         domainName: config.API_DOMAIN,
         certificate: Certificate.fromCertificateArn(
           this,
-          `CxbApiCustomCertificate-${config.ENV}`,
+          "CxbApiCustomCertificate",
           config.API_DOMAIN_CERT_ARN
         ),
         endpointType: apigateway.EndpointType.REGIONAL,
       }
     );
 
-    new apigateway.BasePathMapping(
-      this,
-      `CxbApiBasePathMapping-${config.ENV}`,
-      {
-        domainName: apiDomainName,
-        restApi: api,
-      }
-    );
+    new apigateway.BasePathMapping(this, "CxbApiBasePathMapping", {
+      domainName: apiDomainName,
+      restApi: api,
+    });
   }
 }
